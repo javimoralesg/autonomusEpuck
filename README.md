@@ -103,7 +103,7 @@ En definitiva, “Search Student” sirve para buscar a los alumnos, ya que la l
 ![chunk-0-img-5.jpeg](./assets/chunk-0-img-5.jpeg)
 
 $$
-\left\lbrace \begin{array}{l} \theta = \arctan \left( \frac{ \sum_{i=0}^{7} L_i \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_i \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left\lbrace \begin{array}{l l} 0 \\ \text{Light}_{\text{max}} & \text{if GroundMem = 1 and fFire = 1} \end{array} \right. \end{array} \right..
+\left\lbrace \begin{array}{l} \theta = \arctan \left( \frac{ \sum_{i=0}^{7} L_i \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_i \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left\lbrace \begin{array}{l l} 0 \\ \text{Light}_{\text{max}} & \text{if GroundMem = 1 and fFire = 1} \end{array} \right. \end{array} \right.
 $$
 
 # Rescue

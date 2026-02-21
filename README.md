@@ -2,7 +2,6 @@
 
 Javier Morales Galisteo
 
-
 # Índice
 
 Introducción
@@ -22,7 +21,6 @@ Implementación en el Simulador IRSIM
 Extensión a una Arquitectura Híbrida
 Resultados de la Simulación
 Conclusiones
-
 
 # Introducción
 
@@ -105,7 +103,7 @@ En definitiva, “Search Student” sirve para buscar a los alumnos, ya que la l
 ![chunk-0-img-5.jpeg](./assets/chunk-0-img-5.jpeg)
 
 $$
-\left\{ \begin{array}{l} \theta = \arctg \left( \frac{ \sum_{i=0}^{7} L_i \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_i \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left( \begin{array}{l} 0 \\ Light_{mits} \end{array} \right. \text{ if GroundMem = 0 and fFire = 1} \end{array} \right.
+\left\{ \begin{array}{l} \theta = \arctg \left( \frac{ \sum_{i=0}^{7} L_i \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_i \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left\{ \begin{array}{l l} 0 \\ \text{Light}_{\text{max}} & \text{if GroundMem = 1 and fFire = 1} \end{array} \right. \end{array} \right..
 $$
 
 # Rescue
@@ -119,7 +117,7 @@ Puesto que la zona segura (baldosas negras) está en el lado opuesto a la luz am
 ![chunk-0-img-6.jpeg](./assets/chunk-0-img-6.jpeg)
 
 $$
-\left\{ \begin{array}{l} \theta = z - \arctg \left(\frac {\sum_ {i = 0} ^ {2} L _ {i} \cdot \sin \left(\theta_ {L _ {i}}\right)}{\sum_ {i = 0} ^ {2} L _ {i} \cdot \cos \left(\theta_ {L _ {i}}\right)}\right) \\ \rho = \left\{ \begin{array}{l l} 0 &amp; \\ 1 - \text{Light}_{\text{max}} &amp; \text{if GroundMem = 1 and fFire = 1} \end{array} \right. \end{array} \right.
+\left\{ \begin{array}{l} \theta = \pi - \arctg \left(\frac {\sum_ {i = 0} ^ {7} L _ {i} \cdot \sin \left(\theta_ {L _ {i}}\right)}{\sum_ {i = 0} ^ {7} L _ {i} \cdot \cos \left(\theta_ {L _ {i}}\right)}\right) \\ \rho = \left\{ \begin{array}{l l} 0 & \\ 1 - \text{Light}_{\text{max}} & \text{if GroundMem = 1 and fFire = 1} \end{array} \right. \end{array} \right.
 $$
 
 ## Search Extinguisher
@@ -133,7 +131,7 @@ Por tanto, concluimos que el comportamiento se basa en buscar y coger un extinto
 ![chunk-0-img-7.jpeg](./assets/chunk-0-img-7.jpeg)
 
 $$
-\left\{ \begin{array}{l} \theta = \arctg \left(\frac {\sum_ {i = 0} ^ {2} L _ {iBlue} \cdot \sin \left(\theta_ {L _ {i}}\right)}{\sum_ {i = 0} ^ {2} L _ {iBlue} \cdot \cos \left(\theta_ {L _ {i}}\right)}\right) \\ \rho = \left\{ \begin{array}{l l} 0 &amp; \\ \text{LightBlue}_{\text{max}} &amp; \text{if fFire = 0 and fExtinguisher = 1} \end{array} \right. \end{array} \right.
+\left\{ \begin{array}{l} \theta = \arctg \left(\frac {\sum_ {i = 0} ^ {7} L _ {iBlue} \cdot \sin \left(\theta_ {L _ {i}}\right)}{\sum_ {i = 0} ^ {7} L _ {iBlue} \cdot \cos \left(\theta_ {L _ {i}}\right)}\right) \\ \rho = \left\{ \begin{array}{l l} 0 & \\ \text{LightBlue}_{\text{max}} & \text{if fFire = 0 and fExtinguisher = 1} \end{array} \right. \end{array} \right.
 $$
 
 ## Extinguish Fire
@@ -149,7 +147,7 @@ Es decir, si se ha detectado fuego y se tiene un extintor, se irá hacia la luz 
 ![chunk-0-img-8.jpeg](./assets/chunk-0-img-8.jpeg)
 
 $$
-\left\{ \begin{array}{l} \theta = \arctg \left( \frac{ \sum_{i=0}^{7} L_{iRed} \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_{iRed} \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left\{ \begin{array}{l l} 0 \\ LightRed_{mix} &amp; \text{if } fFire = 0 \text{ and } fExtinguisher = 0 \end{array} \right. \end{array} \right.
+\left\{ \begin{array}{l} \theta = \arctg \left( \frac{ \sum_{i=0}^{7} L_{iRed} \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_{iRed} \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left\{ \begin{array}{l l} 0 \\ LightRed_{max}  & \text{if } fFire = 0 \text{ and } fExtinguisher = 0 \end{array} \right. \end{array} \right.
 $$
 
 # Avoid Fire
@@ -161,7 +159,7 @@ Lo que hará esta función es simplemente alejarse de la luz roja que simula el 
 ![chunk-0-img-9.jpeg](./assets/chunk-0-img-9.jpeg)
 
 $$
-\left\{ \begin{array}{l} \theta = \pi - \arctg \left( \frac{ \sum_{i=0}^{7} L_{iRed} \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_{iRed} \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left\{ \begin{array}{l l} 0 &amp; \text{if } LightRed_{mix} &lt; FIRE - THRESHOLD + 0.01 \\ 1 &amp; \text{if } LightRed_{mix} \geq FIRE - THRESHOLD + 0.01 \end{array} \right. \end{array} \right.
+\left\{ \begin{array}{l} \theta = \pi - \arctg \left( \frac{ \sum_{i=0}^{7} L_{iRed} \cdot \sin(\theta_{L_i}) }{ \sum_{i=0}^{7} L_{iRed} \cdot \cos(\theta_{L_i}) } \right) \\ \rho = \left\{ \begin{array}{l l} 0  & \text{if } LightRed_{max} < FIRE - THRESHOLD + 0.01 \\ 1 & \text{if } LightRed_{max} \geq FIRE - THRESHOLD + 0.01 \end{array} \right. \end{array} \right.
 $$
 
 # Avoid Obstacle
@@ -171,7 +169,7 @@ $$
 ![chunk-0-img-10.jpeg](./assets/chunk-0-img-10.jpeg)
 
 $$
-\left\{ \begin{array}{l} \theta = g - \arctg \left(\frac {\sum_ {i = 0} ^ {7} I R _ {i} \cdot \sin \left(\theta_ {k _ {i}}\right)}{\sum_ {i = 0} ^ {7} I R _ {i} \cdot \cos \left(\theta_ {k _ {i}}\right)}\right) \\ \rho = \left\{ \begin{array}{l l} 0 &amp; \text{if } I R _ {m b s} &lt;   \text{PROXIMITY} - \text{THRESHOLD} \\ 1 &amp; \text{if } I R _ {m b s} \geq \text{PROXIMITY} - \text{THRESHOLD} \end{array} \right. \end{array} \right.
+\left\{ \begin{array}{l} \theta = \pi - \arctg \left(\frac {\sum_ {i = 0} ^ {7} I R _ {i} \cdot \sin \left(\theta_ {L _ {i}}\right)}{\sum_ {i = 0} ^ {7} I R _ {i} \cdot \cos \left(\theta_ {L _ {i}}\right)}\right) \\ \rho = \left\{ \begin{array}{l l} 0 & \text{if } I R _ {max}  <   \text{PROXIMITY} - \text{THRESHOLD} \\ 1 & \text{if } I R _ {max} \geq \text{PROXIMITY} - \text{THRESHOLD} \end{array} \right. \end{array} \right.
 $$
 
 # Implementación en el Simulador IRSIM
